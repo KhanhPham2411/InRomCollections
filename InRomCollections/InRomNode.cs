@@ -8,51 +8,53 @@ using System.Threading.Tasks;
 
 namespace InRomCollections
 {
-	public class InRomNode
+	public class InRomNode : InRomNodeBase
 	{
-		public string address;
-		public string nextNodeAdress;
-		public string previousNodeAddress;
-
 		public void InsertNext(InRomNode node)
 		{
-			if (nextNodeAdress == null)
+			if (NextNodeAdress == null)
 			{
-				nextNodeAdress = node.address;
+				NextNodeAdress = node.Address;
 				Save();
 				return;
 			}
 
-			var nextNode = Load(nextNodeAdress);
-			node.nextNodeAdress = nextNode.address;
-			nextNodeAdress = node.address;
+			var nextNode = Load(NextNodeAdress);
+			node.NextNodeAdress = nextNode.Address;
+			NextNodeAdress = node.Address;
 			Save();
 		}
-
 		public void InsertPrevious(InRomNode node)
 		{
-			if (previousNodeAddress == null)
+			if (PreviousNodeAddress == null)
 			{
-				previousNodeAddress = node.address;
+				PreviousNodeAddress = node.Address;
 				Save();
 				return;
 			}
 
-			var previousNode = Load(previousNodeAddress);
-			node.previousNodeAddress = previousNode.address;
-			previousNodeAddress = node.address;
+			var previousNode = Load(PreviousNodeAddress);
+			node.PreviousNodeAddress = previousNode.Address;
+			PreviousNodeAddress = node.Address;
 			Save();
 		}
-		public void Save()
-		{
-			var jsonContent = JsonConvert.SerializeObject(this);
-			File.WriteAllText(address, jsonContent);
-		}
-
 		public static InRomNode Load(string address)
 		{
 			var jsonContent = File.ReadAllText(address);
 			return JsonConvert.DeserializeObject<InRomNode>(jsonContent);
+		}
+	}
+
+	public class InRomNode<T> : InRomNode
+	{
+		private T value;
+
+		public T Value { get => value;
+			set
+			{
+				this.value = value;
+				Save();
+			}
 		}
 	}
 }
