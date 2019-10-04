@@ -25,7 +25,29 @@ namespace InRomCollections
 		protected void Save()
 		{
 			var jsonContent = JsonConvert.SerializeObject(this, Formatting.Indented);
+			if (Address == null) return;
+
 			File.WriteAllText(Address, jsonContent);
+		}
+		public static T Load<T>(string address)
+		{
+			var jsonContent = File.ReadAllText(address);
+			return JsonConvert.DeserializeObject<T>(jsonContent);
+		}
+
+		public static bool operator ==(InRomEntry source, InRomEntry target)
+		{
+			var jsonSource = JsonConvert.SerializeObject(source);
+			var jsonTarget = JsonConvert.SerializeObject(target);
+
+			return jsonSource == jsonTarget;
+		}
+		public static bool operator !=(InRomEntry source, InRomEntry target)
+		{
+			var jsonSource = JsonConvert.SerializeObject(source);
+			var jsonTarget = JsonConvert.SerializeObject(target);
+
+			return jsonSource != jsonTarget;
 		}
 	}
 }

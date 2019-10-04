@@ -15,46 +15,61 @@ namespace InRomCollections
 			if (NextNodeAdress == null)
 			{
 				NextNodeAdress = node.Address;
-				Save();
-				return;
-			}
 
-			var nextNode = Load(NextNodeAdress);
-			node.NextNodeAdress = nextNode.Address;
-			NextNodeAdress = node.Address;
-			Save();
+				if (node.PreviousNodeAddress != Address)
+					node.InsertPrevious(this);
+			}
+			else
+			{
+				var nextNode = Load<InRomNode>(NextNodeAdress);
+				node.NextNodeAdress = nextNode.Address;
+				NextNodeAdress = node.Address;
+
+				if (nextNode.PreviousNodeAddress != node.Address)
+					nextNode.InsertPrevious(node);
+			}
 		}
 		public void InsertPrevious(InRomNode node)
 		{
 			if (PreviousNodeAddress == null)
 			{
 				PreviousNodeAddress = node.Address;
-				Save();
-				return;
-			}
 
-			var previousNode = Load(PreviousNodeAddress);
-			node.PreviousNodeAddress = previousNode.Address;
-			PreviousNodeAddress = node.Address;
-			Save();
+				if (node.NextNodeAdress != Address)
+					node.InsertNext(this);
+			}
+			else
+			{
+				var previousNode = Load<InRomNode>(PreviousNodeAddress);
+				node.PreviousNodeAddress = previousNode.Address;
+				PreviousNodeAddress = node.Address;
+
+				if (previousNode.NextNodeAdress != node.Address)
+					previousNode.InsertNext(node);
+			}
 		}
+
 		public static InRomNode Load(string address)
 		{
-			var jsonContent = File.ReadAllText(address);
-			return JsonConvert.DeserializeObject<InRomNode>(jsonContent);
+			return Load<InRomNode>(address);
 		}
 	}
 
 	public class InRomNode<T> : InRomNode
 	{
-		private T value;
+		private T _value;
 
-		public T Value { get => value;
+		public T Value { get => _value;
 			set
 			{
-				this.value = value;
+				_value = value;
 				Save();
 			}
+		}
+
+		public new static InRomNode<T> Load(string address)
+		{
+			return Load<InRomNode<T>>(address);
 		}
 	}
 }
