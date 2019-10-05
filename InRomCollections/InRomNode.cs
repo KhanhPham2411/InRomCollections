@@ -10,6 +10,10 @@ namespace InRomCollections
 {
 	public class InRomNode : InRomNodeBase
 	{
+		public InRomNode(string address) : base(address)
+		{
+		}
+
 		public void InsertNext(InRomNode node)
 		{
 			if (NextNodeAdress == null)
@@ -49,27 +53,73 @@ namespace InRomCollections
 			}
 		}
 
+		public void RemoveNext()
+		{
+			if (NextNodeAdress == null)
+				return;
+
+			var nextNode = Load(NextNodeAdress);
+			NextNodeAdress = null;
+
+			if (nextNode.NextNodeAdress != null)
+			{
+				var nodeAfterNext = Load(nextNode.NextNodeAdress);
+				nodeAfterNext.PreviousNodeAddress = null;
+				InsertNext(nodeAfterNext);	
+			}
+		}
+
+		public void RemovePrevious()
+		{
+			if (PreviousNodeAddress == null)
+				return;
+
+			var previousNode = Load(PreviousNodeAddress);
+			PreviousNodeAddress = null;
+
+			if (previousNode.PreviousNodeAddress != null)
+			{
+				var nodeBeforePrevious = Load(previousNode.PreviousNodeAddress);
+				nodeBeforePrevious.NextNodeAdress = null;
+				InsertPrevious(nodeBeforePrevious);
+			}
+		}
+
 		public static InRomNode Load(string address)
 		{
-			return Load<InRomNode>(address);
+			return new InRomNode(address);
 		}
+	}
+
+	public class InRomNodeModel<T> : InRomNodeBaseModel
+	{
+		public T Value;
 	}
 
 	public class InRomNode<T> : InRomNode
 	{
-		private T _value;
+		public InRomNode(string address) : base(address)
+		{
+		}
 
-		public T Value { get => _value;
+		public T Value
+		{
+			get
+			{
+				var model = Load<InRomNodeModel<T>>();
+				return model.Value;
+			}
 			set
 			{
-				_value = value;
-				Save();
+				var model = Load<InRomNodeModel<T>>();
+				model.Value = value;
+				Save(model);
 			}
 		}
 
 		public new static InRomNode<T> Load(string address)
 		{
-			return Load<InRomNode<T>>(address);
+			return new InRomNode<T>(address);
 		}
 	}
 }

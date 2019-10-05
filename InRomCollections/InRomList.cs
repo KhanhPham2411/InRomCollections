@@ -10,13 +10,13 @@ namespace InRomCollections
 {
 	//public class InRomList : InRomListBase
 	//{
-	//	public InRomNode<T> First()
+	//	public InRomNode FirstNode()
 	//	{
 	//		if (FirstNodeAddress == null) return null;
 
-	//		return InRomNode<T>.Load(FirstNodeAddress);
+	//		return InRomNode.Load(FirstNodeAddress);
 	//	}
-	//	public InRomNode Last()
+	//	public InRomNode LastNode()
 	//	{
 	//		if (LastNodeAdress == null) return null;
 
@@ -27,13 +27,24 @@ namespace InRomCollections
 	//	{
 	//		if (FirstNodeAddress == null)
 	//		{
-	//			setFirstNodeAddress(node.Address);
-	//			setLastNodeAddress(node.Address);
+	//			FirstNodeAddress = node.Address;
+	//			LastNodeAdress = node.Address;
 	//			return;
 	//		}
-	//		Last().InsertNext(node);
-	//		LastNodeAdress = node.Address;
-	//	}
 
+	//		LastNodeAdress = node.Address;
+	//		LastNode().InsertNext(node);
+	//	}
+	//	public void Remove(InRomNode node)
+	//	{
+	//		if (FirstNodeAddress == null)
+	//		{
+	//			return;
+	//		}
+	//		if(node.NextNodeAdress == null)
+	//		{
+
+	//		}
+	//	}
 	//}
 }

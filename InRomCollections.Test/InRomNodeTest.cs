@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace InRomCollections.Test
 {
-	public class InRomNodeTest : InRomEntryTest
+	public class InRomNodeTest
 	{
 		protected string _testFolder = "test";
 
@@ -35,7 +35,6 @@ namespace InRomCollections.Test
 			Assert.AreEqual(node1.NextNodeAdress, node2.Address);
 			Assert.AreEqual(node2.PreviousNodeAddress, node1.Address);
 		}
-
 		[Test]
 		public void InsertNextBetween_ShouldReturnCorrectly()
 		{
@@ -48,12 +47,9 @@ namespace InRomCollections.Test
 
 			Assert.AreEqual(node1.NextNodeAdress, node2.Address);
 			Assert.AreEqual(node2.NextNodeAdress, node3.Address);
-
-			node3 = InRomNode<TestClass>.Load(node3.Address); // refresh node 3
 			Assert.AreEqual(node3.PreviousNodeAddress, node2.Address);
 			Assert.AreEqual(node2.PreviousNodeAddress, node1.Address);
 		}
-
 		[Test]
 		public void InsertPrevious_ShouldReturnCorrectly()
 		{
@@ -64,7 +60,6 @@ namespace InRomCollections.Test
 			Assert.AreEqual(node1.NextNodeAdress, node2.Address);
 			Assert.AreEqual(node2.PreviousNodeAddress, node1.Address);
 		}
-
 		[Test]
 		public void InsertPreviousBetween_ShouldReturnCorrectly()
 		{
@@ -75,15 +70,40 @@ namespace InRomCollections.Test
 			node3.InsertPrevious(node1);
 			node3.InsertPrevious(node2);
 
-			node1 = InRomNode<TestClass>.Load(node1.Address); // refresh node 1
-			node2 = InRomNode<TestClass>.Load(node2.Address); // refresh node 3
-
 			Assert.AreEqual(node1.NextNodeAdress, node2.Address);
 			Assert.AreEqual(node2.NextNodeAdress, node3.Address);
 			Assert.AreEqual(node3.PreviousNodeAddress, node2.Address);
 			Assert.AreEqual(node2.PreviousNodeAddress, node1.Address);
 		}
 
+		[Test]
+		public void RemovePreviousBetween_ShouldReturnCorrectly()
+		{
+			var node1 = CreateNodeTest("node1");
+			var node2 = CreateNodeTest("node2");
+			var node3 = CreateNodeTest("node3");
+
+			node1.InsertNext(node2);
+			node1.InsertNext(node3);
+			node2.RemovePrevious();
+
+			Assert.AreEqual(node1.NextNodeAdress, node2.Address);
+			Assert.AreEqual(node2.PreviousNodeAddress, node1.Address);
+		}
+		[Test]
+		public void RemoveNextBetween_ShouldReturnCorrectly()
+		{
+			var node1 = CreateNodeTest("node1");
+			var node2 = CreateNodeTest("node2");
+			var node3 = CreateNodeTest("node3");
+
+			node1.InsertNext(node2);
+			node1.InsertNext(node3);
+			node1.RemoveNext();
+
+			Assert.AreEqual(node1.NextNodeAdress, node2.Address);
+			Assert.AreEqual(node2.PreviousNodeAddress, node1.Address);
+		}
 
 		public InRomNode<TestClass> CreateNodeTest()
 		{
@@ -91,12 +111,12 @@ namespace InRomCollections.Test
 		}
 		public InRomNode<TestClass> CreateNodeTest(string name)
 		{
-			var node = new InRomNode<TestClass>();
-			node.Address = _testFolder + "/" + name;
+			var address = _testFolder + "/" + name;
+			var node = new InRomNode<TestClass>(address);
 			node.Value = new TestClass()
 			{
 				TestField1 = 5,
-				TestField2 = "okay cai cay"
+				TestField2 = "okay baby"
 			};
 
 			return node;
@@ -109,7 +129,7 @@ namespace InRomCollections.Test
 		}
 
 		[TearDown]
-		public override void TearDown()
+		public void TearDown()
 		{
 			Directory.Delete(_testFolder, true);
 		}

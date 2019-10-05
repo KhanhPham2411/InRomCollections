@@ -8,23 +8,42 @@ using System.Threading.Tasks;
 
 namespace InRomCollections
 {
+	public class InRomNodeBaseModel : InRomEntryModel
+	{
+		public string NextNodeAdress;
+		public string PreviousNodeAddress;
+	}
+
 	public class InRomNodeBase : InRomEntry
 	{
-		private string _nextNodeAddress;
-		private string _previousNodeAddress;
-	
-		public string NextNodeAdress { get => _nextNodeAddress;
+		public InRomNodeBase(string address) : base(address)
+		{
+		}
+
+		public string NextNodeAdress {
+			get
+			{
+				var model = Load<InRomNodeBaseModel>();
+				return model?.NextNodeAdress;
+			}
 			set
 			{
-				_nextNodeAddress = value;
-				Save();
+				var model = Load<InRomNodeBaseModel>();
+				model.NextNodeAdress = value;
+				Save(model);
 			}
 		}
-		public string PreviousNodeAddress{ get => _previousNodeAddress;
+		public string PreviousNodeAddress{
+			get
+			{
+				var model = Load<InRomNodeBaseModel>();
+				return model?.PreviousNodeAddress;
+			}
 			set
 			{
-				_previousNodeAddress = value;
-				Save();
+				var model = Load<InRomNodeBaseModel>();
+				model.PreviousNodeAddress = value;
+				Save(model);
 			}
 		}
 	}

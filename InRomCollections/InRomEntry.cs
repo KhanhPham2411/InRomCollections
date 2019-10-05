@@ -8,29 +8,48 @@ using System.Threading.Tasks;
 
 namespace InRomCollections
 {
+	public class InRomEntryModel
+	{
+		public string Address;
+	}
+
 	public class InRomEntry
 	{
-		private string _address;
-
-		public string Address
+		public InRomEntry(string address) // Load or create
 		{
-			get => _address;
-			set
+			Address = address;
+
+			if (!File.Exists(address))
 			{
-				_address = value;
-				Save();
+				var model = new InRomEntryModel() { Address = address };
+				Save(model);
 			}
 		}
 
-		protected void Save()
+		public string Address { get; set; }
+
+		protected void Save(object model)
 		{
-			var jsonContent = JsonConvert.SerializeObject(this, Formatting.Indented);
+			var jsonContent = JsonConvert.SerializeObject(model, Formatting.Indented);
 			if (Address == null) return;
 
 			File.WriteAllText(Address, jsonContent);
 		}
-		public static T Load<T>(string address)
+		protected void Delete()
 		{
+			File.Delete(Address);
+		}
+
+		protected T Load<T>()
+		{
+			return Load<T>(Address);
+		}
+		protected static T Load<T>(string address)
+		{
+			if (!File.Exists(address))
+			{
+				return default(T);
+			}
 			var jsonContent = File.ReadAllText(address);
 			return JsonConvert.DeserializeObject<T>(jsonContent);
 		}

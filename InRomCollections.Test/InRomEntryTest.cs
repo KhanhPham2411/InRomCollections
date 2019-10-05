@@ -10,15 +10,14 @@ namespace InRomCollections.Test
 {
 	public class InRomEntryTest
 	{
-		private string _testFile = "test";
+		private string _testFile = "test.json";
 
 		[Test]
 		public void SetAddress_ShouldCreateFile()
 		{
 			Assert.IsFalse(File.Exists(_testFile));
 
-			InRomEntry entry = new InRomEntry();
-			entry.Address = _testFile;
+			InRomEntry entry = new InRomEntry(_testFile);
 
 			Assert.IsTrue(File.Exists(_testFile));
 		}
