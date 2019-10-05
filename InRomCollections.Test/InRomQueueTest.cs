@@ -9,10 +9,6 @@ namespace InRomCollections.Test
 {
 	public class InRomQueueTest : BaseTest
 	{
-		public InRomQueueTest()
-		{
-			_testFolder = "G:\\Temp";
-		}
 
 		[Test]
 		public void EnqueueDequeue_ShoudlRunCorrectly()
