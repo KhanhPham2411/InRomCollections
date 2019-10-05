@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -110,14 +111,11 @@ namespace InRomCollections
 		{
 			get
 			{
-				var model = Load<InRomNodeModel<T>>();
-				return model.Value;
+				return Load<InRomNodeModel<T>>().Value;
 			}
 			set
 			{
-				var model = Load<InRomNodeModel<T>>();
-				model.Value = value;
-				Save(model);
+				SetProperty(nameof(Value), value);
 			}
 		}
 

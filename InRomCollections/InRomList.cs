@@ -23,9 +23,9 @@ namespace InRomCollections
 		}
 		public InRomNode LastNode()
 		{
-			if (LastNodeAdress == null) return null;
+			if (LastNodeAddress == null) return null;
 
-			return InRomNode.Load(LastNodeAdress);
+			return InRomNode.Load(LastNodeAddress);
 		}
 
 		public void Add(InRomNode node)
@@ -33,12 +33,12 @@ namespace InRomCollections
 			if (FirstNodeAddress == null)
 			{
 				FirstNodeAddress = node.Address;
-				LastNodeAdress = node.Address;
+				LastNodeAddress = node.Address;
 				return;
 			}
 
 			LastNode().InsertNext(node);
-			LastNodeAdress = node.Address;
+			LastNodeAddress = node.Address;
 		}
 		public void Remove(InRomNode node)
 		{
@@ -50,9 +50,9 @@ namespace InRomCollections
 			{
 				FirstNodeAddress = node.NextNodeAdress;
 			}
-			if (node.Address == LastNodeAdress)
+			if (node.Address == LastNodeAddress)
 			{
-				LastNodeAdress = node.PreviousNodeAddress;
+				LastNodeAddress = node.PreviousNodeAddress;
 			}
 
 			if (node.NextNodeAdress != null)
@@ -125,6 +125,19 @@ namespace InRomCollections
 			}
 
 			return string.Join("/", splitId);
+		}
+
+		public T First()
+		{
+			if (FirstNodeAddress == null) return default(T);
+
+			return InRomNode<T>.Load(FirstNodeAddress).Value;
+		}
+		public T Last()
+		{
+			if (LastNodeAddress == null) return default(T);
+
+			return InRomNode<T>.Load(LastNodeAddress).Value;
 		}
 	}
 }

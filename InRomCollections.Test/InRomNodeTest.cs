@@ -10,10 +10,8 @@ using System.Threading.Tasks;
 
 namespace InRomCollections.Test
 {
-	public class InRomNodeTest
-	{
-		protected string _testFolder = "test";
-
+	public class InRomNodeTest : BaseTest
+	{ 
 		[Test]
 		public void Load_ShouldReturnCorrectly()
 		{
@@ -103,36 +101,6 @@ namespace InRomCollections.Test
 
 			Assert.AreEqual(node1.NextNodeAdress, node2.Address);
 			Assert.AreEqual(node2.PreviousNodeAddress, node1.Address);
-		}
-
-
-		public InRomNode<TestClass> CreateNodeTest()
-		{
-			return CreateNodeTest(Guid.NewGuid().ToString());
-		}
-		public InRomNode<TestClass> CreateNodeTest(string name)
-		{
-			var address = _testFolder + "/" + name;
-			var node = new InRomNode<TestClass>(address);
-			node.Value = new TestClass()
-			{
-				TestField1 = 5,
-				TestField2 = "okay baby"
-			};
-
-			return node;
-		}
-
-		[SetUp]
-		public void SetUp()
-		{
-			Directory.CreateDirectory(_testFolder);
-		}
-
-		[TearDown]
-		public void TearDown()
-		{
-			Directory.Delete(_testFolder, true);
 		}
 	}
 }

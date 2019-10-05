@@ -11,7 +11,7 @@ namespace InRomCollections
 	public class InRomListBaseModel : InRomEntryModel
 	{
 		public string FirstNodeAddress;
-		public string LastNodeAdress;
+		public string LastNodeAddress;
 	}
 
 	public class InRomListBase : InRomEntry
@@ -25,26 +25,22 @@ namespace InRomCollections
 		{
 			get
 			{
-				return Load<InRomListBaseModel>(Address).FirstNodeAddress;
+				return Load<InRomListBaseModel>().FirstNodeAddress;
 			}
 			set
 			{
-				var model = Load<InRomListBaseModel>();
-				model.FirstNodeAddress = value;
-				Save(model);
+				SetProperty(nameof(FirstNodeAddress), value);
 			}
 		}
-		public string LastNodeAdress
+		public string LastNodeAddress
 		{
 			get
 			{
-				return Load<InRomListBaseModel>(Address).LastNodeAdress;
+				return Load<InRomListBaseModel>().LastNodeAddress;
 			}
 			set
 			{
-				var model = Load<InRomListBaseModel>();
-				model.LastNodeAdress = value;
-				Save(model);
+				SetProperty(nameof(LastNodeAddress), value);
 			}
 		}
 	}

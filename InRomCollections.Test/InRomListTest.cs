@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace InRomCollections.Test
 {
-	public class InRomListTest
+	public class InRomListTest : BaseTest
 	{
-		protected string _testFolder = "test";
-
 		[Test]
 		public void Add_ShouldRunCorrectly()
 		{
@@ -23,7 +21,7 @@ namespace InRomCollections.Test
 			list.Add(node2);
 
 			Assert.AreEqual(list.FirstNodeAddress, node1.Address);
-			Assert.AreEqual(list.LastNodeAdress, node2.Address);
+			Assert.AreEqual(list.LastNodeAddress, node2.Address);
 			Assert.AreEqual(node1.NextNodeAdress, node2.Address);
 			Assert.AreEqual(node2.PreviousNodeAddress, node1.Address);
 		}
@@ -43,7 +41,7 @@ namespace InRomCollections.Test
 			list.Remove(node3);
 
 			Assert.AreEqual(list.FirstNodeAddress, node1.Address);
-			Assert.AreEqual(list.LastNodeAdress, node2.Address);
+			Assert.AreEqual(list.LastNodeAddress, node2.Address);
 			Assert.AreEqual(node1.NextNodeAdress, node2.Address);
 			Assert.AreEqual(node2.PreviousNodeAddress, node1.Address);
 			Assert.IsFalse(File.Exists(node3.Address));
@@ -62,7 +60,7 @@ namespace InRomCollections.Test
 			list.Remove(list.FirstNode());
 
 			Assert.AreEqual(list.FirstNodeAddress, node1.Address);
-			Assert.AreEqual(list.LastNodeAdress, node2.Address);
+			Assert.AreEqual(list.LastNodeAddress, node2.Address);
 			Assert.AreEqual(node1.NextNodeAdress, node2.Address);
 			Assert.AreEqual(node2.PreviousNodeAddress, node1.Address);
 			Assert.IsFalse(File.Exists(node3.Address));
@@ -81,39 +79,10 @@ namespace InRomCollections.Test
 			list.Remove(list.LastNode());
 
 			Assert.AreEqual(list.FirstNodeAddress, node1.Address);
-			Assert.AreEqual(list.LastNodeAdress, node2.Address);
+			Assert.AreEqual(list.LastNodeAddress, node2.Address);
 			Assert.AreEqual(node1.NextNodeAdress, node2.Address);
 			Assert.AreEqual(node2.PreviousNodeAddress, node1.Address);
 			Assert.IsFalse(File.Exists(node3.Address));
-		}
-
-		public InRomNode<TestClass> CreateNodeTest()
-		{
-			return CreateNodeTest(Guid.NewGuid().ToString());
-		}
-		public InRomNode<TestClass> CreateNodeTest(string name)
-		{
-			var address = _testFolder + "/" + name;
-			var node = new InRomNode<TestClass>(address);
-			node.Value = new TestClass()
-			{
-				TestField1 = 5,
-				TestField2 = "okay baby"
-			};
-
-			return node;
-		}
-
-		[SetUp]
-		public void SetUp()
-		{
-			Directory.CreateDirectory(_testFolder);
-		}
-
-		[TearDown]
-		public void TearDown()
-		{
-			Directory.Delete(_testFolder, true);
 		}
 	}
 }

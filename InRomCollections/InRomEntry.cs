@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -28,16 +29,44 @@ namespace InRomCollections
 
 		public string Address { get; set; }
 
+		protected void SetProperty(string propertyName, string value)
+		{
+			var model = Load();
+			model[propertyName] = value;
+			Save(model);
+		}
+		protected void SetProperty(string propertyName, object value)
+		{
+			var model = Load();
+			model[propertyName] = JObject.FromObject(value);
+			Save(model);
+		}
+
 		protected void Save(object model)
 		{
 			var jsonContent = JsonConvert.SerializeObject(model, Formatting.Indented);
 			if (Address == null) return;
 
+			new FileInfo(Address).Directory.Create();
 			File.WriteAllText(Address, jsonContent);
 		}
 		protected void Delete()
 		{
 			File.Delete(Address);
+		}
+
+		protected JObject Load()
+		{
+			return Load(Address);
+		}
+		protected static JObject Load(string address)
+		{
+			if (!File.Exists(address))
+			{
+				return null;
+			}
+			var jsonContent = File.ReadAllText(address);
+			return JObject.Parse(jsonContent);
 		}
 
 		protected T Load<T>()

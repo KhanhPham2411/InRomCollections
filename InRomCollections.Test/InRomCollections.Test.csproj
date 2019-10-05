@@ -51,8 +51,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseTest.cs" />
     <Compile Include="InRomEntryTest.cs" />
     <Compile Include="InRomListTest.cs" />
+    <Compile Include="InRomListTypeTest.cs" />
     <Compile Include="InRomNodeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestClass.cs" />

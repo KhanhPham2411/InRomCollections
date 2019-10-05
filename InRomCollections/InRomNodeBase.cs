@@ -28,9 +28,7 @@ namespace InRomCollections
 			}
 			set
 			{
-				var model = Load<InRomNodeBaseModel>();
-				model.NextNodeAdress = value;
-				Save(model);
+				SetProperty(nameof(NextNodeAdress), value);
 			}
 		}
 		public string PreviousNodeAddress{
@@ -41,9 +39,7 @@ namespace InRomCollections
 			}
 			set
 			{
-				var model = Load<InRomNodeBaseModel>();
-				model.PreviousNodeAddress = value;
-				Save(model);
+				SetProperty(nameof(PreviousNodeAddress), value);
 			}
 		}
 	}
