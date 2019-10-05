@@ -67,6 +67,8 @@ namespace InRomCollections
 				nodeAfterNext.PreviousNodeAddress = null;
 				InsertNext(nodeAfterNext);	
 			}
+
+			nextNode.Delete();
 		}
 
 		public void RemovePrevious()
@@ -83,6 +85,8 @@ namespace InRomCollections
 				nodeBeforePrevious.NextNodeAdress = null;
 				InsertPrevious(nodeBeforePrevious);
 			}
+
+			previousNode.Delete();
 		}
 
 		public static InRomNode Load(string address)

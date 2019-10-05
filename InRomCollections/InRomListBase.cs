@@ -8,35 +8,46 @@ using System.Threading.Tasks;
 
 namespace InRomCollections
 {
-	//public class InRomListBase : InRomEntry
-	//{
-	//	public string FirstNodeAddress {
-	//		get
-	//		{
-	//			return Load<InRomListBaseModel>(Address).FirstNodeAddress;
-	//		}
-	//		set
-	//		{
-	//			InRomListBaseModel model = Load<InRomEntryModel>();
-	//			model.Address = value;
-	//			Save();
-	//		}
-	//	}
-	//	public string LastNodeAdress {
-	//		get
-	//		{
-	//			return Load<InRomListBaseModel>(Address).LastNodeAdress;
-	//		}
-	//		set
-	//		{
-	//			Save();
-	//		}
-	//	}
-	//}
+	public class InRomListBaseModel : InRomEntryModel
+	{
+		public string FirstNodeAddress;
+		public string LastNodeAdress;
+	}
 
-	//public class InRomListBaseModel : InRomEntry
-	//{
-	//	public string FirstNodeAddress;
-	//	public string LastNodeAdress;
-	//}
+	public class InRomListBase : InRomEntry
+	{
+		public InRomListBase(string address) : base(address)
+		{
+
+		}
+
+		public string FirstNodeAddress
+		{
+			get
+			{
+				return Load<InRomListBaseModel>(Address).FirstNodeAddress;
+			}
+			set
+			{
+				var model = Load<InRomListBaseModel>();
+				model.FirstNodeAddress = value;
+				Save(model);
+			}
+		}
+		public string LastNodeAdress
+		{
+			get
+			{
+				return Load<InRomListBaseModel>(Address).LastNodeAdress;
+			}
+			set
+			{
+				var model = Load<InRomListBaseModel>();
+				model.LastNodeAdress = value;
+				Save(model);
+			}
+		}
+	}
+
+
 }

@@ -77,7 +77,7 @@ namespace InRomCollections.Test
 		}
 
 		[Test]
-		public void RemovePreviousBetween_ShouldReturnCorrectly()
+		public void RemovePreviousBetween_ShouldRunCorrectly()
 		{
 			var node1 = CreateNodeTest("node1");
 			var node2 = CreateNodeTest("node2");
@@ -91,7 +91,7 @@ namespace InRomCollections.Test
 			Assert.AreEqual(node2.PreviousNodeAddress, node1.Address);
 		}
 		[Test]
-		public void RemoveNextBetween_ShouldReturnCorrectly()
+		public void RemoveNextBetween_ShouldRunCorrectly()
 		{
 			var node1 = CreateNodeTest("node1");
 			var node2 = CreateNodeTest("node2");
@@ -104,6 +104,7 @@ namespace InRomCollections.Test
 			Assert.AreEqual(node1.NextNodeAdress, node2.Address);
 			Assert.AreEqual(node2.PreviousNodeAddress, node1.Address);
 		}
+
 
 		public InRomNode<TestClass> CreateNodeTest()
 		{

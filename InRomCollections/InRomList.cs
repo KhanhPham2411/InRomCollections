@@ -8,43 +8,75 @@ using System.Threading.Tasks;
 
 namespace InRomCollections
 {
-	//public class InRomList : InRomListBase
-	//{
-	//	public InRomNode FirstNode()
-	//	{
-	//		if (FirstNodeAddress == null) return null;
+	public class InRomList : InRomListBase
+	{
+		public InRomList(string address) : base(address)
+		{
+			
+		}
 
-	//		return InRomNode.Load(FirstNodeAddress);
-	//	}
-	//	public InRomNode LastNode()
-	//	{
-	//		if (LastNodeAdress == null) return null;
+		public InRomNode FirstNode()
+		{
+			if (FirstNodeAddress == null) return null;
 
-	//		return InRomNode.Load(LastNodeAdress);
-	//	}
+			return InRomNode.Load(FirstNodeAddress);
+		}
+		public InRomNode LastNode()
+		{
+			if (LastNodeAdress == null) return null;
 
-	//	public void Add(InRomNode node)
-	//	{
-	//		if (FirstNodeAddress == null)
-	//		{
-	//			FirstNodeAddress = node.Address;
-	//			LastNodeAdress = node.Address;
-	//			return;
-	//		}
+			return InRomNode.Load(LastNodeAdress);
+		}
 
-	//		LastNodeAdress = node.Address;
-	//		LastNode().InsertNext(node);
-	//	}
-	//	public void Remove(InRomNode node)
-	//	{
-	//		if (FirstNodeAddress == null)
-	//		{
-	//			return;
-	//		}
-	//		if(node.NextNodeAdress == null)
-	//		{
+		public void Add(InRomNode node)
+		{
+			if (FirstNodeAddress == null)
+			{
+				FirstNodeAddress = node.Address;
+				LastNodeAdress = node.Address;
+				return;
+			}
 
-	//		}
-	//	}
-	//}
+			LastNode().InsertNext(node);
+			LastNodeAdress = node.Address;
+		}
+		public void Remove(InRomNode node)
+		{
+			if (FirstNodeAddress == null)
+			{
+				return;
+			}
+			if (node.Address == FirstNodeAddress)
+			{
+				FirstNodeAddress = node.NextNodeAdress;
+			}
+			if (node.Address == LastNodeAdress)
+			{
+				LastNodeAdress = node.PreviousNodeAddress;
+			}
+
+			if (node.NextNodeAdress != null)
+			{
+				var nextNode = InRomNode.Load(node.NextNodeAdress);
+				nextNode.RemovePrevious();
+				return;
+			}
+			if (node.PreviousNodeAddress != null)
+			{
+				var previousNode = InRomNode.Load(node.PreviousNodeAddress);
+				previousNode.RemoveNext();
+				return;
+			}
+		}
+	}
+
+	public class InRomList<T> : InRomList
+	{
+		public InRomList(string address) : base(address)
+		{
+
+		}
+
+
+	}
 }
