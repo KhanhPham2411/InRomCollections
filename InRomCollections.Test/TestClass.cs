@@ -10,5 +10,7 @@ namespace InRomCollections.Test
 	{
 		public int TestField1;
 		public string TestField2;
+
+		public string Id { get; internal set; }
 	}
 }
