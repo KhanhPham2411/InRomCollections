@@ -49,6 +49,7 @@
     <Compile Include="InRomListBase.cs" />
     <Compile Include="InRomNode.cs" />
     <Compile Include="InRomNodeBase.cs" />
+    <Compile Include="InRomQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
