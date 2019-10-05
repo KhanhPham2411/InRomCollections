@@ -8,9 +8,8 @@ namespace InRomCollections.Test
 {
 	public class TestClass
 	{
+		public string Id;
 		public int TestField1;
 		public string TestField2;
-
-		public string Id { get; internal set; }
 	}
 }

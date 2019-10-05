@@ -44,11 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InRomEntry.cs" />
+    <Compile Include="Internal\InRomEntry.cs" />
     <Compile Include="InRomList.cs" />
-    <Compile Include="InRomListBase.cs" />
-    <Compile Include="InRomNode.cs" />
-    <Compile Include="InRomNodeBase.cs" />
+    <Compile Include="Internal\InRomListBase.cs" />
+    <Compile Include="Internal\InRomNode.cs" />
+    <Compile Include="Internal\InRomNodeBase.cs" />
     <Compile Include="InRomQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -9,10 +9,6 @@ namespace InRomCollections.Test
 {
 	public class InRomListTypeTest : BaseTest
 	{
-		public InRomListTypeTest()
-		{
-			_testFolder = "G:\\temp";
-		}
 
 		[Test]
 		public void Add_ShouldRunCorrectly()
@@ -27,6 +23,7 @@ namespace InRomCollections.Test
 			};
 			var item2 = new TestClass()
 			{
+				Id = "item2",
 				TestField1 = 222,
 				TestField2 = "item2"
 			};
@@ -84,6 +81,66 @@ namespace InRomCollections.Test
 			Assert.AreEqual(list.Last().TestField1, item3.TestField1);
 			Assert.AreEqual(list.NextOf(item2).TestField1, item3.TestField1);
 			Assert.AreEqual(list.PreviousOf(item3).TestField1, item2.TestField1);
+		}
+
+		[Test]
+		public void Get_ShouldRunCorrectly()
+		{
+			var list = new InRomList<TestClass>(_testFolder + "/list.json");
+
+			var item1 = new TestClass()
+			{
+				Id = "item1",
+				TestField1 = 111,
+				TestField2 = "item1"
+			};
+			var item2 = new TestClass()
+			{
+				Id = "item2",
+				TestField1 = 222,
+				TestField2 = "item2"
+			};
+			var item3 = new TestClass()
+			{
+				Id = "item3",
+				TestField1 = 333,
+				TestField2 = "item3"
+			};
+			list.Add(item1);
+			list.Add(item2);
+			list.Add(item3);
+
+			Assert.AreEqual(list.Get(item2.Id).TestField1, item2.TestField1);
+		}
+
+		[Test]
+		public void Contains_ShouldRunCorrectly()
+		{
+			var list = new InRomList<TestClass>(_testFolder + "/list.json");
+
+			var item1 = new TestClass()
+			{
+				Id = "item1",
+				TestField1 = 111,
+				TestField2 = "item1"
+			};
+			var item2 = new TestClass()
+			{
+				Id = "item2",
+				TestField1 = 222,
+				TestField2 = "item2"
+			};
+			var item3 = new TestClass()
+			{
+				Id = "item3",
+				TestField1 = 333,
+				TestField2 = "item3"
+			};
+			list.Add(item1);
+			list.Add(item3);
+
+			Assert.IsTrue(list.Contains(item3));
+			Assert.IsFalse(list.Contains(item2));
 		}
 
 		[TestCase("1234567", "12/34/56/7")]

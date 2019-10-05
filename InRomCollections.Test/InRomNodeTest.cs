@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using InRomCollections.Internal;
+using Newtonsoft.Json;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;

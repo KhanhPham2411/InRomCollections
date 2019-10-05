@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using InRomCollections.Internal;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -138,6 +139,22 @@ namespace InRomCollections
 
 			var address = GetAddress(id);
 			Remove(InRomNode.Load(address));
+		}
+
+		public T Get(string id)
+		{
+			var address = GetAddress(id);
+			if (address == null) return default(T);
+
+			var node = Load<InRomNodeModel<T>>(address);
+			if (node == null)
+				return default(T);
+
+			return node.Value;
+		}
+		public bool Contains(T item)
+		{
+			return Get(GetAutoId(item)) != null;
 		}
 
 		public string GetAddress(T item)
