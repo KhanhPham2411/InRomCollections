@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <!--*-->
+    <id>InRomCollections</id>
+    <!--*-->
+    <version>1.0.7218.23064</version>
+    <title>InRomCollections</title>
+    <!--*-->
+    <authors>KhanhPham2411</authors>
+    <owners>KhanhPham2411</owners>
+    <!--
+    <licenseUrl></licenseUrl>
+    <projectUrl></projectUrl>
+    <iconUrl></iconUrl>
+-->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <!--*-->
+    <description>Use the collections you love without worrying about memory :)</description>
+    <!--*-->
+    <releaseNotes>Support almost the same API with list, queue in .net framework</releaseNotes>
+    <copyright>Copyright ©  2019</copyright>
+    <tags>
+    </tags>
+    <dependencies>
+      <!--
+      <dependency id="SampleDependency" version="1.0" />
+-->
+    </dependencies>
+  </metadata>
+</package>
