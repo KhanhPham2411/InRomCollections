@@ -81,7 +81,7 @@ namespace InRomCollections
 
 		public InRomList(string address, bool useaAutoId = true) : base(address)
 		{
-			_baseFolder = Path.GetDirectoryName(address) + "/Nodes";
+			_baseFolder = Path.Combine(Path.GetDirectoryName(address), "Nodes");
 			_name = Path.GetFileNameWithoutExtension(address);
 			_useAutoId = useaAutoId;
 		}
@@ -180,7 +180,7 @@ namespace InRomCollections
 		}
 		public string GetAddress(string id)
 		{
-			var address = $"{_baseFolder}/{GetIdFolder(id)}/{_name}_{id}.json";
+			var address = Path.Combine(_baseFolder, $"{GetIdFolder(id)}/{_name}_{id}.json");
 			return address;
 		}
 		public string GetIdFolder(string id)
