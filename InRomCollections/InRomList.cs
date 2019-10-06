@@ -142,6 +142,9 @@ namespace InRomCollections
 
 		public void Remove(T item)
 		{
+			if (item == null)
+				return;
+
 			Remove(GetAutoId(item));
 		}
 		public void Remove(string id)
