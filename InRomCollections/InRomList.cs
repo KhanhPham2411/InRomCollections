@@ -90,14 +90,14 @@ namespace InRomCollections
 		{
 			foreach (var item in collections)
 			{
-				if (Contains(item))
-					continue;
-
 				Add(item);
 			}
 		}
 		public void Add(T item)
 		{
+			if (Contains(item))
+				return;
+
 			string id = Guid.NewGuid().ToString();
 			if (_useAutoId)
 			{
