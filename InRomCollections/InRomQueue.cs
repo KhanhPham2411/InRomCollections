@@ -17,6 +17,10 @@ namespace InRomCollections
 		{
 			Add(item);
 		}
+		public void EnqueueRange(IEnumerable<T> collections)
+		{
+			AddRange(collections);
+		}
 		public T Dequeue()
 		{
 			var peek = Peek();

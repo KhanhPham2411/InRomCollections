@@ -42,5 +42,42 @@ namespace InRomCollections.Test
 			Assert.AreEqual(queue.Peek().TestField1, item2.TestField1);
 			Assert.AreEqual(item.TestField1, item1.TestField1);
 		}
+
+		[Test]
+		public void EnqueueRange_ShoudlRunCorrectly()
+		{
+			var queue = new InRomQueue<TestClass>(_testFolder + "/list.json");
+
+			List<TestClass> list = new List<TestClass>();
+			var item1 = new TestClass()
+			{
+				Id = "item1",
+				TestField1 = 111,
+				TestField2 = "item1"
+			};
+			var item2 = new TestClass()
+			{
+				Id = "item2",
+				TestField1 = 222,
+				TestField2 = "item2"
+			};
+			var item3 = new TestClass()
+			{
+				Id = "item3",
+				TestField1 = 333,
+				TestField2 = "item3"
+			};
+			list.Add(item1);
+			list.Add(item2);
+			list.Add(item3);
+			list.Add(item1);
+
+			queue.EnqueueRange(list);
+			var item = queue.Dequeue();
+
+			Assert.AreEqual(queue.Peek().TestField1, item2.TestField1);
+			Assert.AreEqual(item.TestField1, item1.TestField1);
+			Assert.AreEqual(queue.Last().TestField1, item3.TestField1);
+		}
 	}
 }

@@ -41,6 +41,7 @@ namespace InRomCollections
 			LastNode().InsertNext(node);
 			LastNodeAddress = node.Address;
 		}
+
 		public void Remove(InRomNode node)
 		{
 			if (FirstNodeAddress == null)
@@ -85,6 +86,16 @@ namespace InRomCollections
 			_useAutoId = useaAutoId;
 		}
 
+		public void AddRange(IEnumerable<T> collections)
+		{
+			foreach (var item in collections)
+			{
+				if (Contains(item))
+					continue;
+
+				Add(item);
+			}
+		}
 		public void Add(T item)
 		{
 			string id = Guid.NewGuid().ToString();
