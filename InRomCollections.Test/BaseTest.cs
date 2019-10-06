@@ -16,12 +16,22 @@ namespace InRomCollections.Test
 		[SetUp]
 		public void SetUp()
 		{
+			TryCleanFolder();
 			Directory.CreateDirectory(_testFolder);
 		}
 		[TearDown]
 		public void TearDown()
 		{
-			Directory.Delete(_testFolder, true);
+			TryCleanFolder();
+		}
+
+		public void TryCleanFolder()
+		{
+			try
+			{
+				Directory.Delete(_testFolder, true);
+			}
+			catch { }
 		}
 
 		public InRomNode<TestClass> CreateNodeTest()

@@ -12,6 +12,7 @@ namespace InRomCollections.Internal
 	{
 		public string FirstNodeAddress;
 		public string LastNodeAddress;
+		public string CurrentNodeAddress;
 	}
 
 	public class InRomListBase : InRomEntry
@@ -41,6 +42,17 @@ namespace InRomCollections.Internal
 			set
 			{
 				SetProperty(nameof(LastNodeAddress), value);
+			}
+		}
+		public string CurrentNodeAddress
+		{
+			get
+			{
+				return Load<InRomListBaseModel>().CurrentNodeAddress;
+			}
+			set
+			{
+				SetProperty(nameof(CurrentNodeAddress), value);
 			}
 		}
 	}

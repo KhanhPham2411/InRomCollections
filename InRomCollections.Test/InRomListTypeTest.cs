@@ -9,6 +9,40 @@ namespace InRomCollections.Test
 {
 	public class InRomListTypeTest : BaseTest
 	{
+		[Test]
+		public void GetSetCurrent_ShouldRunCorectly()
+		{
+			var list = new InRomList<TestClass>(_testFolder + "/list.json");
+
+			var item1 = new TestClass()
+			{
+				Id = "item1",
+				TestField1 = 111,
+				TestField2 = "item1"
+			};
+			var item2 = new TestClass()
+			{
+				Id = "item2",
+				TestField1 = 222,
+				TestField2 = "item2"
+			};
+			var item3 = new TestClass()
+			{
+				Id = "item3",
+				TestField1 = 333,
+				TestField2 = "item3"
+			};
+			list.Add(item1);
+			list.Add(item2);
+
+			Assert.AreEqual(list.Current.TestField1, item1.TestField1);
+
+			list.Current = item3;
+			Assert.AreNotEqual(list.Current.TestField1, item3.TestField1);
+
+			list.Current = list.NextOf(list.Current);
+			Assert.AreEqual(list.Current.TestField1, item2.TestField1);
+		}
 
 		[Test]
 		public void Add_ShouldRunCorrectly()

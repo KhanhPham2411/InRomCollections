@@ -76,19 +76,19 @@ namespace InRomCollections
 		private string _baseFolder;
 		private string _name;
 		private const int _splitIdLength = 2;
-		private bool _useaAutoId;
+		private bool _useAutoId;
 
 		public InRomList(string address, bool useaAutoId = true) : base(address)
 		{
 			_baseFolder = Path.GetDirectoryName(address) + "/Nodes";
 			_name = Path.GetFileNameWithoutExtension(address);
-			_useaAutoId = useaAutoId;
+			_useAutoId = useaAutoId;
 		}
 
 		public void Add(T item)
 		{
 			string id = Guid.NewGuid().ToString();
-			if (_useaAutoId)
+			if (_useAutoId)
 			{
 				var autoId = GetAutoId(item);
 				if (autoId != null)
@@ -192,11 +192,17 @@ namespace InRomCollections
 		}
 		public string GetAutoId(T item)
 		{
-			if (_useaAutoId)
+			if (_useAutoId)
 			{
 				dynamic dynamicItem = item;
-				return dynamicItem.Id;
+				var id = dynamicItem.Id;
+				if (id == null)
+				{
+					throw new Exception($"Please specify Id for the model or disable useAutoId when construct:\n{JsonConvert.SerializeObject(item)}");
+				}
+				return id;
 			}
+
 			return null;
 		}
 
@@ -211,6 +217,30 @@ namespace InRomCollections
 			if (LastNodeAddress == null) return default(T);
 
 			return InRomNode<T>.Load(LastNodeAddress).Value;
+		}
+		public T Current
+		{
+			get
+			{
+				if (CurrentNodeAddress == null)
+				{
+					CurrentNodeAddress = FirstNodeAddress;
+					return First();
+				}
+
+				return InRomNode<T>.Load(CurrentNodeAddress).Value;
+			}
+			set
+			{
+				if (Contains(value))
+				{
+					CurrentNodeAddress = GetAddress(value);
+				}
+				else
+				{
+					CurrentNodeAddress = FirstNodeAddress;
+				}
+			}
 		}
 	}
 }
