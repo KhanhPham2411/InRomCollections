@@ -13,9 +13,25 @@ namespace InRomCollections
 		{
 		}
 
+
+		private static object _lockEnqueue = new object();
 		public void Enqueue(T item)
 		{
-			Add(item);
+			lock (_lockEnqueue)
+			{
+				Add(item);
+			}
+		}
+
+		public async void EnqueueAsync(T item)
+		{
+			var task = new Task(() =>
+			{
+				Enqueue(item);
+			});
+
+			task.Start();
+			await task;
 		}
 		public void EnqueueRange(IEnumerable<T> collections)
 		{

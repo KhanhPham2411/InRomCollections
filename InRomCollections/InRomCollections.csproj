@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helper\FileHelper.cs" />
     <Compile Include="Internal\InRomEntry.cs" />
     <Compile Include="InRomList.cs" />
     <Compile Include="Internal\InRomListBase.cs" />

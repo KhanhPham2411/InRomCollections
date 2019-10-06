@@ -11,7 +11,7 @@ namespace InRomCollections.Test
 {
 	public class InRomEntryTest
 	{
-		private string _testFile = "test.json";
+		private string _testFile = "folder1/folder2/folder3/test.json";
 
 		[Test]
 		public void SetAddress_ShouldCreateFile()

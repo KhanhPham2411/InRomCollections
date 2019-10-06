@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using InRomCollections.Helper;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace InRomCollections.Internal
 
 	public class InRomEntry
 	{
+
 		public InRomEntry(string address) // Load or create
 		{
 			Address = address;
@@ -47,9 +49,16 @@ namespace InRomCollections.Internal
 			var jsonContent = JsonConvert.SerializeObject(model, Formatting.Indented);
 			if (Address == null) return;
 
-			new FileInfo(Address).Directory.Create();
-			File.WriteAllText(Address, jsonContent);
+			//new FileInfo(Address).Directory.Create();
+			var dir = Path.GetDirectoryName(Address);
+			if (!string.IsNullOrEmpty(dir))
+			{
+				Directory.CreateDirectory(dir);
+			}
+
+			FileHelper.WriteAllText(Address, jsonContent);
 		}
+
 		protected void Delete()
 		{
 			File.Delete(Address);
@@ -65,7 +74,8 @@ namespace InRomCollections.Internal
 			{
 				return null;
 			}
-			var jsonContent = File.ReadAllText(address);
+
+			var jsonContent = FileHelper.ReadAllText(address);
 			return JObject.Parse(jsonContent);
 		}
 
@@ -79,7 +89,7 @@ namespace InRomCollections.Internal
 			{
 				return default(T);
 			}
-			var jsonContent = File.ReadAllText(address);
+			var jsonContent = FileHelper.ReadAllText(address);
 			return JsonConvert.DeserializeObject<T>(jsonContent);
 		}
 
