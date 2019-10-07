@@ -110,7 +110,7 @@ namespace InRomCollections
 			
 			Add(id, item);
 		}
-		public void Add(string id, T item)
+		public virtual void Add(string id, T item)
 		{
 			var address = GetAddress(id);
 			var node = new InRomNode<T>(address);
@@ -147,7 +147,7 @@ namespace InRomCollections
 
 			Remove(GetAutoId(item));
 		}
-		public void Remove(string id)
+		public virtual void Remove(string id)
 		{
 			if (id == null) return;
 
@@ -155,7 +155,7 @@ namespace InRomCollections
 			Remove(InRomNode.Load(address));
 		}
 
-		public T Get(string id)
+		public virtual T Get(string id)
 		{
 			var address = GetAddress(id);
 			if (address == null) return default(T);

@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseTest.cs" />
+    <Compile Include="InRomDictionaryTest.cs" />
     <Compile Include="InRomEntryTest.cs" />
     <Compile Include="InRomListTest.cs" />
     <Compile Include="InRomListTypeTest.cs" />

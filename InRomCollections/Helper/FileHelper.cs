@@ -13,7 +13,7 @@ namespace InRomCollections.Helper
 
 		public static string ReadAllText(string path)
 		{
-			CheckLockDictionary(path);
+			//CheckLockDictionary(path);
 
 			if (path == null)
 			{
@@ -24,7 +24,7 @@ namespace InRomCollections.Helper
 				throw new ArgumentException("Argument_EmptyPath");
 			}
 
-			lock (_lockDictionary[path])
+			//lock (_lockDictionary[path])
 			{
 				return InternalReadAllText(path, Encoding.UTF8);
 			}
@@ -43,7 +43,7 @@ namespace InRomCollections.Helper
 
 		public static void WriteAllText(string path, string contents)
 		{
-			CheckLockDictionary(path);
+			//CheckLockDictionary(path);
 
 			if (path == null)
 			{
@@ -54,7 +54,7 @@ namespace InRomCollections.Helper
 				throw new ArgumentException("Argument_EmptyPath");
 			}
 
-			lock (_lockDictionary[path])
+			//lock (_lockDictionary[path])
 			{
 				InternalWriteAllText(path, contents, Encoding.UTF8);
 			}
