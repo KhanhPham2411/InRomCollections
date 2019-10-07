@@ -168,7 +168,8 @@ namespace InRomCollections
 		}
 		public bool Contains(T item)
 		{
-			return Get(GetAutoId(item)) != null;
+			var address = GetAddress(item);
+			return File.Exists(address);
 		}
 
 		public string GetAddress(T item)
